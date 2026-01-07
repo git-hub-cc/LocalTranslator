@@ -24,16 +24,32 @@
 建议在虚拟环境中安装。根据你的硬件选择一种安装方式：
 
 ```bash
+# 退出venv
+# deactivate
+
 # 创建并激活虚拟环境
 python -m venv venv
+
 # Windows: .\venv\Scripts\activate
 # Linux/Mac: source venv/bin/activate
+.\venv\Scripts\Activate
+
+# 删除旧的打包输出和临时文件
+# Remove-Item -Recurse -Force dist, build, *.spec -ErrorAction SilentlyContinue
+# 卸载当前的 ctranslate2, 删除不干净，建议重建venv环境
+# pip uninstall -y ctranslate2
 
 # --- 选项 A: NVIDIA 显卡 (CUDA) [推荐] ---
 pip install "ctranslate2[cuda]" argostranslate pyinstaller
 
 # --- 选项 B: 无显卡 (CPU 模式) ---
 pip install ctranslate2 argostranslate pyinstaller
+
+# --- 选项 C: AMD 显卡 (ROCm) [仅 Linux 支持] ---
+# 第一步：确保系统已安装 ROCm 依赖（以 Ubuntu 为例）
+# sudo apt-get update && sudo apt-get install -y rocm-libs rocm-dev
+# 第二步：安装适配 ROCm 的 ctranslate2
+pip install "ctranslate2[rocm]" argostranslate pyinstaller
 ```
 
 ---
